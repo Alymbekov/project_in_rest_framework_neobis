@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.app_api.models import (
+                        Course,
+                        Branch,
+                        Contact,
+                    )
+                    
+admin.site.register(Course)
+admin.site.register(Branch)
+admin.site.register(Contact)
