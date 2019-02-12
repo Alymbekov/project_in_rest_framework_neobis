@@ -14,15 +14,26 @@ class BranchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Branch
-        fields = ('id', 'course','latitude','longitude','address')
-
+        fields = (
+            'id',
+            'course',
+            'latitude',
+            'longitude',
+            'address'
+        )
+        read_only_fields = ('course',)
 
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ('id', 'course','value')
-
+        fields = (
+            'id',
+            'course',
+            'value',
+            'type'
+        )
+        read_only_fields = ('course',)
 
 class CourseSerializer(serializers.ModelSerializer):
     branches = BranchSerializer(many=True)
@@ -30,28 +41,22 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('id', 'name', 'description', 'category', 'logo', 'contacts', 'branches')
+        fields = [
+            'id',
+            'name',
+            'description',
+            'category',
+            'logo',
+            'contacts',
+            'branches',
+        ]
 
-
-    def create(self, validated_data,*args):
-        branches_data = validated_data.pop('branches')
-        contacts_data = validated_data.pop('contacts')
+    def create(self,validated_data):
+        contacts = validated_data.pop('contacts')
+        branches = validated_data.pop('branches')
         course = Course.objects.create(**validated_data)
-        for contact in contacts_data:
-            Contact.objects.create(*args , **contact)
-        for branch in branches_data:
-            Branch.objects.create( *args, **branch)
-
+        for contact in contacts:
+            Contact.objects.create(**contact,course=course)
+        for branch in branches:
+            Branch.objects.create(**branch,course=course)
         return course
-# class CourseSerializer(serializers.ModelSerializer):
-#     branches = BranchSerializer(many=True)
-#     contacts = ContactSerializer(many=True)
-#
-#     class Meta:
-#         model = Course
-#         fields = ('id', 'name', 'description', 'category', 'logo', 'contacts', 'branches')
-#
-#
-#     def create(self, validated_data):
-#         course = Course.objects.create(**validated_data)
-#         return course
