@@ -1,5 +1,6 @@
 from django.urls import reverse
 from .models import *
+from apps.category.models import Category
 import json
 from django.test import TestCase
 from rest_framework import status
@@ -40,7 +41,9 @@ class Test_Get_Course_By_Id(APITestCase):
         # assert response.status_code == HTTP_200_OK
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         # self.assertEqual(json.loads(response.content), {'id': 14, 'name': 'English Zone'})
+
 class Test_Delete_Course_By_Id(APITestCase):
+
 
     def test_delete_course_by_id(self):
         """
@@ -50,3 +53,22 @@ class Test_Delete_Course_By_Id(APITestCase):
         print("delete course id",response.status_code,)
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         # self.assertEqual(json.loads(response.content), [])
+
+class Test_Create_Categories(TestCase):
+
+
+    def setUp(self):
+        """
+        Проверяем работоспособность создания категории
+        """
+        Category.objects.create(
+                            name = 'Electrica',
+                            imgpath = 'https://image.jpg'
+                        )
+        print(Category)
+    def test_one_category(self):
+        variable_of_testing = Category.objects.get(imgpath='https://image.jpg')
+        print(variable_of_testing.imgpath)
+        self.assertEquals(variable_of_testing.imgpath,'https://image.jpg')
+        # self.assertContains('Electrica')
+        # self.assertContains('https://image.jpg')
