@@ -2,13 +2,14 @@ import json
 import unittest
 from .models import *
 from django.urls import reverse
-from django.test import TestCase
+from django.test import TestCase,Client
 from rest_framework import status
 from apps.category.models import Category
 from rest_framework.test import (
                             APITestCase,
                             RequestsClient,
-                            APIRequestFactory
+                            APIRequestFactory,
+                            APIClient,
                         )
 
 
@@ -166,6 +167,49 @@ class Test_Create_Contacts(TestCase):
 
 
 
-class Test_Post_Request(APITestCase):
+class Test_Post_Request(TestCase):
 
-    pass
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_post_request(self):
+        url = reverse('courses')
+        # client.force_authenticate(self.user)
+        data={
+                "name": "English Zone",
+                "description": "Миссия English Zone заключается в том, чтобы помочь людям раскрыть весь их потенциал.",
+                "category": 1,
+                "logo": "http://www.answersfrom.com/wp-content/uploads/2011/09/Not-talanted-but-curious.jpg",
+                "contacts": [
+                    {
+                        "type": 1,
+                        "value": "0770 792 299"
+                    },
+                    {
+                        "type": 2,
+                        "value": "https://www.facebook.com/english.zone.kg/"
+                    },
+                    {
+                        "type": 3,
+                        "value": "ezone.kg@gmail.com"
+                    }
+                ],
+                "branches": [
+                    {
+                        "address": "Manas 58/ Aini - right next to the Manas university",
+                        "latitude": "42.847971",
+                        "longitude": "74.586733"
+            },
+            {
+                        "address": "Бишкек, Юг-2 дом 15а Советская/Горького",
+                        "latitude": "42.8586017",
+                        "longitude": "74.6068425"
+                    }
+                ]
+            }
+
+        response = self.client.post(url,data)
+
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+            # client.logout()
