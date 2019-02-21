@@ -23,7 +23,6 @@ class Contact(models.Model):
         (1, "PHONE"),
         (2, "FACEBOOK"),
         (3, "EMAIL"),
-
     )
     type = models.PositiveIntegerField(choices=CONTACT_CHOISES,default=3)
     value = models.CharField(max_length=155)
