@@ -1,11 +1,16 @@
-from django.urls import reverse
-from .models import *
-from apps.category.models import Category
 import json
+import unittest
+from .models import *
+from django.urls import reverse
 from django.test import TestCase
 from rest_framework import status
-from rest_framework.test import  APITestCase,RequestsClient
-import unittest
+from apps.category.models import Category
+from rest_framework.test import (
+                            APITestCase,
+                            RequestsClient,
+                            APIRequestFactory
+                        )
+
 
 # loader = unittest.TestLoader()
 # start_dir = 'project_in_rest_framework_neobis/api_project/apps/app_api/tests.py'
@@ -132,7 +137,35 @@ class Test_Create_Branch(TestCase):
         self.assertEquals(branch_testing.longitude,45.99)
 
 class Test_Create_Contacts(TestCase):
-    pass
+
+        def setUp(self):
+            """
+            Проверяем создание модели branch
+            """
+            category  = Category.objects.create(
+                                        name='language course',
+                                        imgpath='https://testimage.jpg'
+                                    )
+            course = Course.objects.create(
+                                name = 'Programming Course',
+                                logo = 'logo.jpg',
+                                description ='we are so master of this course,because we"ve many masters teacher',
+                                category = category,
+                            )
+            Contact.objects.create(
+                            course = course,
+                            # CONTACT_CHOISES = 'test.@gmail.com',
+                            type = 2,
+                            value = 'test',
+                        )
+
+        def test_contacts_model(self):
+
+            contacts_testing = Contact.objects.get(value='test')
+            self.assertEquals(contacts_testing.value,'test')
+
+
 
 class Test_Post_Request(APITestCase):
+
     pass
