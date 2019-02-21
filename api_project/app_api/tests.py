@@ -95,33 +95,42 @@ class Test_Create_Course(TestCase):
         get_course_testing = Course.objects.get(name='Programming Course')
         self.assertEquals(get_course_testing.name,'Programming Course')
 #
-# class Test_Create_Branch(TestCase):
-#
-#
-#     def setUp(self):
-#         """
-#         Проверяем создание модели branch
-#         """
-#         # course = Course.objects.create(
-#         #
-#         #                         )
-#         Branch.objects.create(
-#                         latitude = 32.58,
-#                         longitude = 45.99,
-#                         address = 'squares Ala Too',
-#                         # course = 'language',
-#                     )
-#         print(Branch)
-#
-#     def test_branch_model(self):
-#         branch_testing = Branch.objects.get(
-#                         latitude = 32.58,
-#                         longitude = 45.99,
-#                         address = 'squares Ala Too',
-#                         # course = 'language',
-#                     )
-#         self.assertEquals(variable_of_testing.latitude,32.58)
-#         self.assertEquals(variable_of_testing.longitude,45.99)
+
+class Test_Create_Branch(TestCase):
+
+
+    def setUp(self):
+        """
+        Проверяем создание модели branch
+        """
+        category  = Category.objects.create(
+                                    name='language course',
+                                    imgpath='https://testimage.jpg'
+                                )
+        course = Course.objects.create(
+                            name = 'Programming Course',
+                            logo = 'logo.jpg',
+                            description ='we are so master of this course,because we"ve many masters teacher',
+                            category = category,
+                        )
+        Branch.objects.create(
+                        latitude = 32.58,
+                        longitude = 45.99,
+                        address = 'squares Ala Too',
+                        course = course,
+                    )
+        print(Branch)
+
+    def test_branch_model(self):
+        branch_testing = Branch.objects.get(
+                        latitude = 32.58,
+                        longitude = 45.99,
+                        address = 'squares Ala Too',
+                        # course = 'language',
+                    )
+        self.assertEquals(branch_testing.latitude,32.58)
+        self.assertEquals(branch_testing.longitude,45.99)
+
 class Test_Create_Contacts(TestCase):
     pass
 
