@@ -1,0 +1,26 @@
+[Unit]
+Description=gunicorn daemon for api_neobis project
+Requires=gunicorn_api_neobis.socket
+After=network.target
+
+[Service]
+PermissionsStartOnly=True
+User=dastan
+Group=www-data
+RuntimeDirectory=gunicorn
+RuntimeDirectoryMode=0775
+PIDFile=/run/gunicorn/pid
+WorkingDirectory=/home/dastan/api_neobis
+ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
+	--access-logfile /home/dastan/api_neobis/logs/access.log \
+        --error-logfile /home/dastan/api_neobis/logs/error.log \
+	--pid /run/gunicorn/pid \
+	--env DJANGO_SETTINGS_MODULE=api_neobis.settings \
+	--workers 3 \
+	--bind unix:/run/gunicorn/api_neobis_socket api_neobis.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Private Tmp=true
+
+[Install]
+WantedBy=multi-user.target
