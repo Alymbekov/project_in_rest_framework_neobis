@@ -7,6 +7,8 @@ from .models import *
 from .serializers import *
 from rest_framework import generics
 
+def index(request):
+    return render(request,'index.html',{})
 
 class CourseListView(generics.ListCreateAPIView):
     queryset = Course.objects.all()

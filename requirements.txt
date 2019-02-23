@@ -1,7 +1,8 @@
 Django>=2
-Pillow 
+Pillow
 psycopg2
 psycopg2-binary
 python-decouple
 djangorestframework
 pygments
+gunicorn==19.7.1
