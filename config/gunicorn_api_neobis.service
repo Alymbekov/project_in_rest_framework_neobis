@@ -17,7 +17,7 @@ ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
           --pid /run/gunicorn/pid   \
           --env DJANGO_SETTINGS_MODULE=api_project.settings \
           --workers 3 \
-          --bind unix:/run/gunicorn/api_neobis_socket mysite.wsgi:application
+          --bind unix:/run/gunicorn/api_neobis_socket api_project.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
