@@ -1,0 +1,8 @@
+[Unit]
+Description=gunicorn socket for simpledjango project
+
+[Socket]
+ListenStream=/run/gunicorn/simpledjango_socket
+
+[Install]
+WantedBy=sockets.target

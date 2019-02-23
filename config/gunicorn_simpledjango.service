@@ -1,6 +1,6 @@
 [Unit]
-Description=gunicorn daemon for api_neobis project
-Requires=gunicorn_api_neobis.socket
+Description=gunicorn daemon for simpledjango project
+Requires=gunicorn_simpledjango.socket
 After=network.target
 
 [Service]
@@ -11,13 +11,13 @@ RuntimeDirectory=gunicorn
 RuntimeDirectoryMode=0775
 PIDFile=/run/gunicorn/pid
 WorkingDirectory=/home/dastan/api_neobis
-ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
+ExecStart=/home/murat/simpledjango/env/bin/gunicorn \
           --access-logfile /home/dastan/api_neobis/logs/access.log \
-          --error-logfile /home/dastan/api_neobis/logs/error.log \
+          --error-logfile /home/murat/api_neobis/logs/error.log \
           --pid /run/gunicorn/pid   \
           --env DJANGO_SETTINGS_MODULE=api_project.settings \
           --workers 3 \
-          --bind unix:/run/gunicorn/api_neobis_socket api_project.wsgi:application
+          --bind unix:/run/gunicorn/simpledjango_socket api_project.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true

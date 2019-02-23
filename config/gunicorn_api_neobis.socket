@@ -1,8 +1,0 @@
-[Unit]
-Description=gunicorn socket for api_neobis project
-
-[Socket]
-ListenStream=/run/gunicorn/api_neobis_socket
-
-[Install]
-WantedBy=sockets.target
