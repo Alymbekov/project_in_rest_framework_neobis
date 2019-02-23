@@ -6,6 +6,7 @@ from rest_framework import status
 from .models import *
 from .serializers import *
 from rest_framework import generics
+from django.shortcuts import render
 
 def index(request):
     return render(request,'index.html',{})
