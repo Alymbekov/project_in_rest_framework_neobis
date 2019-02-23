@@ -13,7 +13,7 @@ PIDFile=/run/gunicorn/pid
 WorkingDirectory=/home/dastan/api_neobis
 ExecStart=/home/murat/simpledjango/env/bin/gunicorn \
           --access-logfile /home/dastan/api_neobis/logs/access.log \
-          --error-logfile /home/murat/api_neobis/logs/error.log \
+          --error-logfile /home/dastan/api_neobis/logs/error.log \
           --pid /run/gunicorn/pid   \
           --env DJANGO_SETTINGS_MODULE=api_project.settings \
           --workers 3 \
