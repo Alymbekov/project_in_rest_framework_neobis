@@ -15,7 +15,7 @@ ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
           --access-logfile /home/dastan/api_neobis/logs/access.log \
           --error-logfile /home/dastan/api_neobis/logs/error.log \
           --pid /run/gunicorn/pid   \
-          --env DJANGO_SETTINGS_MODULE=mysite.settings \
+          --env DJANGO_SETTINGS_MODULE=api_project.settings \
           --workers 3 \
           --bind unix:/run/gunicorn/api_neobis_socket mysite.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
