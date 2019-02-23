@@ -12,15 +12,15 @@ RuntimeDirectoryMode=0775
 PIDFile=/run/gunicorn/pid
 WorkingDirectory=/home/dastan/api_neobis
 ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
-	--access-logfile /home/dastan/api_neobis/logs/access.log \
-        --error-logfile /home/dastan/api_neobis/logs/error.log \
-	--pid /run/gunicorn/pid \
-	--env DJANGO_SETTINGS_MODULE=api_neobis.settings \
-	--workers 3 \
-	--bind unix:/run/gunicorn/api_neobis_socket api_neobis.wsgi:application
+          --access-logfile /home/dastan/api_neobis/logs/access.log \
+          --error-logfile /home/dastan/api_neobis/logs/error.log \
+          --pid /run/gunicorn/pid   \
+          --env DJANGO_SETTINGS_MODULE=mysite.settings \
+          --workers 3 \
+          --bind unix:/run/gunicorn/api_neobis_socket mysite.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
-Private Tmp=true
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
