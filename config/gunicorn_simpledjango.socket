@@ -1,3 +1,4 @@
+
 [Unit]
 Description=gunicorn socket for simpledjango project
 

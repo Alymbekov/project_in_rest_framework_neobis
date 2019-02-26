@@ -10,12 +10,12 @@ Group=www-data
 RuntimeDirectory=gunicorn
 RuntimeDirectoryMode=0775
 PIDFile=/run/gunicorn/pid
-WorkingDirectory=/home/dastan/api_neobis
-ExecStart=/home/dastan/api_neobis/env/bin/gunicorn \
-          --access-logfile /home/dastan/api_neobis/logs/access.log \
-          --error-logfile /home/dastan/api_neobis/logs/error.log \
+WorkingDirectory=/home/dastan/simpledjango
+ExecStart=/home/dastan/simpledjango/env/bin/gunicorn \
+          --access-logfile /home/dastan/simpledjango/logs/access.log \
+          --error-logfile /home/dastan/simpledjango/logs/error.log \
           --pid /run/gunicorn/pid   \
-          --env DJANGO_SETTINGS_MODULE=api_project.settings \
+          --env DJANGO_SETTINGS_MODULE=api_project.settings_prod \
           --workers 3 \
           --bind unix:/run/gunicorn/simpledjango_socket api_project.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
