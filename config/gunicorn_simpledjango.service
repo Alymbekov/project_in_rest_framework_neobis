@@ -15,7 +15,7 @@ ExecStart=/home/dastan/simpledjango/env/bin/gunicorn \
           --access-logfile /home/dastan/simpledjango/logs/access.log \
           --error-logfile /home/dastan/simpledjango/logs/error.log \
           --pid /run/gunicorn/pid   \
-          --env DJANGO_SETTINGS_MODULE=api_project.settings_prod \
+          --env DJANGO_SETTINGS_MODULE=api_project.settings \
           --workers 3 \
           --bind unix:/run/gunicorn/simpledjango_socket api_project.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID

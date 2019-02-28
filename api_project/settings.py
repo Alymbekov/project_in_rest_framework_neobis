@@ -19,7 +19,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',cast=bool)
 
 
-ALLOWED_HOSTS = ['*','46.101.230.7','dastanapi.tk']
+ALLOWED_HOSTS = ['*','104.248.245.118','dastanapi.tk']
 
 
 # Application definition
