@@ -167,6 +167,9 @@ class Test_Create_Contacts(TestCase):
 
 
 
+"""
+ пост запрос
+"""
 class Test_Post_Request(TestCase):
 
 
@@ -209,7 +212,8 @@ class Test_Post_Request(TestCase):
                 ]
             }
 
-        response = self.client.post(url,data)
-
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-            # client.logout()
+        # response = self.client.post(url,data)
+        response = self.client.post(url, data, format='json')
+        # self.assertEqual(Course.objects.get().name, 'English Zone')
+        self.assertEqual(Course.objects.count(), 1)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
